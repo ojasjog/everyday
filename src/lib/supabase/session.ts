@@ -29,7 +29,15 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: no code between createServerClient and getClaims().
   // getClaims() verifies the token and triggers the refresh when needed.
-  await supabase.auth.getClaims()
+  const { data } = await supabase.auth.getClaims()
+
+  const path = request.nextUrl.pathname
+  const needsLogin = ['/new', '/me', '/inbox', '/admin'].some(
+    (p) => path === p || path.startsWith(p + '/')
+  )
+  if (!data?.claims && needsLogin) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
 
   // IMPORTANT: return supabaseResponse as-is, or the refreshed cookies are lost.
   return supabaseResponse

@@ -3,11 +3,9 @@
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { inputClass } from '@/lib/ui'
 
 type Mode = 'login' | 'signup'
-
-const inputClass =
-  'w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-base outline-none focus:border-stone-500'
 
 export default function LoginForm() {
   const searchParams = useSearchParams()

@@ -28,3 +28,10 @@ export async function createClient() {
     }
   )
 }
+
+// The current request's Supabase client plus the signed-in user's id (or null).
+export async function getViewer() {
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getClaims()
+  return { supabase, uid: (data?.claims?.sub as string | undefined) ?? null }
+}
