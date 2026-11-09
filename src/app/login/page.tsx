@@ -8,8 +8,8 @@ export default function LoginPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h1 className="text-2xl font-semibold">Welcome</h1>
-        <p className="text-sm text-stone-600">
+        <h1 className="font-serif text-[1.75rem] font-medium leading-tight">Welcome</h1>
+        <p className="text-sm text-pencil">
           We&rsquo;ll email you a link. No passwords.
         </p>
       </div>

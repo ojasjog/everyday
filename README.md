@@ -50,8 +50,11 @@ Under **Authentication → Sign In / Providers**, keep **Email** enabled. Under
 - **Site URL**: your production URL, e.g. `https://everyday.vercel.app`
 - **Redirect URLs**: add `http://localhost:3000/auth/callback` and `https://<your-domain>/auth/callback`
 
-Supabase's built-in email sender is heavily rate-limited (a few emails per hour). Before inviting real
-people, set up custom SMTP under **Authentication → Emails → SMTP Settings**.
+Supabase's built-in email sender allows only about 2 emails per hour for the whole project, and only
+to addresses of your Supabase team members. Before inviting anyone, set up custom SMTP under
+**Authentication → Emails → SMTP Settings** (e.g. Resend, Postmark or Brevo, all with free tiers).
+Then raise **Authentication → Rate Limits → emails sent per hour** (e.g. to 100). Each address also
+has a 60-second cooldown between links.
 
 ### 5. Seed invite codes
 

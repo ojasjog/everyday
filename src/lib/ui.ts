@@ -1,12 +1,14 @@
 export const inputClass =
-  'w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-base outline-none focus:border-stone-500'
+  'w-full rounded-sm border border-rule bg-sheet px-3 py-2 text-base text-ink outline-none placeholder:text-pencil focus:border-ink'
 
-export const buttonClass =
-  'rounded-lg bg-stone-800 px-4 py-2 text-white disabled:opacity-60'
+export const buttonClass = 'rounded-sm bg-ink px-4 py-2 font-medium text-sheet hover:bg-ink/90 disabled:opacity-60'
 
-export const linkButtonClass = 'text-sm text-stone-600 underline underline-offset-2 hover:text-stone-900'
+export const linkButtonClass = 'text-sm text-pencil underline decoration-rule underline-offset-4 hover:text-ink hover:decoration-ink'
 
-export const errorClass = 'rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900'
+export const errorClass = 'rounded-sm border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900'
+
+// A post or note set like a letter: a flat sheet, no shadow.
+export const sheetClass = 'rounded-sm bg-sheet px-5 py-5 sm:px-7'
 
 // Database trigger messages (errcode P0001) are written for people; anything else isn't.
 export function friendlyError(error: { code?: string; message: string }) {

@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: 'Me · Everyday' }
 
 export default function MePage() {
   return (
-    <Suspense fallback={<p className="text-stone-500">Loading…</p>}>
+    <Suspense fallback={<p className="text-pencil">Loading…</p>}>
       <Me />
     </Suspense>
   )
@@ -34,7 +34,7 @@ async function Me() {
     <div className="space-y-10">
       <section className="space-y-4">
         <div className="flex items-baseline justify-between">
-          <h1 className="text-2xl font-semibold">You</h1>
+          <h1 className="font-serif text-[1.75rem] font-medium leading-tight">You</h1>
           <Link href={`/u/${uid}`} className="text-sm underline">
             See your public page
           </Link>
@@ -43,16 +43,16 @@ async function Me() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Your archive</h2>
+        <h2 className="font-serif text-xl font-medium">Your archive</h2>
         {!posts?.length && (
-          <p className="text-stone-500">
+          <p className="text-pencil">
             Nothing yet. <Link href="/new" className="underline">Share something</Link>.
           </p>
         )}
         {(posts as (Post & { is_removed: boolean })[] | null)?.map((p) => (
           <PostCard key={p.id} post={p}>
             {p.is_removed && (
-              <p className="text-sm text-stone-500">This post was removed by a moderator.</p>
+              <p className="text-sm text-pencil">This post was removed by a moderator.</p>
             )}
             <PostControls post={p} />
           </PostCard>

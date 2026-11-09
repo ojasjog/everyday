@@ -48,7 +48,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <button type="submit" disabled={status === 'saving'} className={`${buttonClass} text-sm`}>
           {status === 'saving' ? 'Saving…' : 'Save'}
         </button>
-        {status === 'saved' && <span className="text-sm text-stone-500">Saved.</span>}
+        {status === 'saved' && <span className="text-sm text-pencil">Saved.</span>}
       </div>
     </form>
   )
@@ -99,7 +99,7 @@ export function PostControls({ post }: { post: Post }) {
   }
 
   return (
-    <div className="flex gap-5 border-t border-stone-100 pt-3">
+    <div className="flex gap-5 border-t border-rule pt-3">
       <button type="button" onClick={() => setEditing(true)} className={linkButtonClass}>Edit</button>
       <button type="button" onClick={remove} disabled={busy} className={linkButtonClass}>Delete</button>
       {error && <p className={errorClass}>{error}</p>}

@@ -8,7 +8,7 @@ type FeedPost = Post & { author_id: string; display_name: string; location: stri
 
 export default function Home() {
   return (
-    <Suspense fallback={<p className="text-stone-500">Finding a few people for you…</p>}>
+    <Suspense fallback={<p className="text-pencil">Finding a few people for you…</p>}>
       <Feed />
     </Suspense>
   )
@@ -20,8 +20,8 @@ async function Feed() {
   if (!uid) {
     return (
       <div className="space-y-3">
-        <h1 className="text-2xl font-semibold">Ordinary lives, in their own words.</h1>
-        <p className="text-stone-600">
+        <h1 className="font-serif text-[1.75rem] font-medium leading-tight">Ordinary lives, in their own words.</h1>
+        <p className="text-pencil">
           A few posts a day from people you don&rsquo;t know. No followers, no numbers.
         </p>
         <Link href="/login" className="inline-block underline">
@@ -42,7 +42,7 @@ async function Feed() {
   const liked = new Set((myLikes ?? []).map((l) => l.post_id as string))
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {posts.map((p) => (
         <PostCard
           key={p.id}
@@ -52,7 +52,7 @@ async function Feed() {
           <PostActions postId={p.id} initiallyLiked={liked.has(p.id)} />
         </PostCard>
       ))}
-      <p className="py-10 text-center text-stone-500">
+      <p className="py-14 text-center font-serif text-xl italic text-pencil">
         That&rsquo;s enough for today. Come back later.
       </p>
     </div>

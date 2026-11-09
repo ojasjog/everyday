@@ -22,19 +22,18 @@ export default function PostActions({ postId, initiallyLiked }: { postId: string
   }
 
   return (
-    <div className="space-y-3 border-t border-stone-100 pt-3">
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-        <button
-          type="button"
-          onClick={toggleLike}
-          disabled={busy}
-          aria-pressed={liked}
-          className="text-sm text-stone-700"
-          title="Only you can see this"
-        >
-          {liked ? '♥ Liked' : '♡ Like'}
-        </button>
-      </div>
+    // One row of actions; an opened note/report form takes its own full-width row.
+    <div className="flex flex-wrap items-baseline gap-x-6 gap-y-3 border-t border-rule pt-4">
+      <button
+        type="button"
+        onClick={toggleLike}
+        disabled={busy}
+        aria-pressed={liked}
+        className={`text-sm ${liked ? 'text-stamp' : 'text-ink'}`}
+        title="Only you can see this"
+      >
+        <span aria-hidden className="text-base">{liked ? '♥' : '♡'}</span> {liked ? 'Liked' : 'Like'}
+      </button>
       <MessageBox
         label="Send a private note"
         placeholder="Only they will see this."
@@ -82,10 +81,10 @@ function MessageBox({
     else setSent(true)
   }
 
-  if (sent) return <p className="text-sm text-stone-500">{done}</p>
+  if (sent) return <p className="w-full text-sm text-pencil">{done}</p>
 
   return (
-    <details>
+    <details className="open:w-full">
       <summary className={`${linkButtonClass} cursor-pointer list-none`}>{label}</summary>
       <form onSubmit={onSubmit} className="mt-2 space-y-2">
         <textarea

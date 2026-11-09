@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { sheetClass } from '@/lib/ui'
 
 export type Post = {
   id: string
@@ -17,7 +18,8 @@ export function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-// Shows a post and nothing about how others reacted to it. Keep it that way.
+// A post set like a letter: dateline, body, sign-off. It shows nothing about how
+// others reacted to it. Keep it that way.
 export default function PostCard({
   post,
   author,
@@ -28,23 +30,23 @@ export default function PostCard({
   children?: React.ReactNode
 }) {
   return (
-    <article className="space-y-3 rounded-2xl border border-stone-200 bg-white px-5 py-4">
-      <header className="text-sm text-stone-500">
-        {author && (
-          <>
-            <Link href={`/u/${author.id}`} className="font-medium text-stone-800 hover:underline">
-              {author.display_name}
-            </Link>
-            {author.location && <> · {author.location}</>}
-            {' · '}
-          </>
-        )}
-        <time dateTime={post.created_at}>{formatDate(post.created_at)}</time>
-      </header>
-      <p className="whitespace-pre-wrap break-words">{post.body}</p>
+    <article className={`${sheetClass} space-y-4`}>
+      <time dateTime={post.created_at} className="block text-right text-sm text-pencil">
+        {formatDate(post.created_at)}
+      </time>
+      <p className="whitespace-pre-wrap break-words font-serif text-[1.0625rem] leading-[1.7]">{post.body}</p>
       {post.image_path && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl(post.image_path)} alt="" loading="lazy" className="w-full rounded-lg" />
+        <img src={imageUrl(post.image_path)} alt="" loading="lazy" className="w-full rounded-sm" />
+      )}
+      {author && (
+        <p className="text-right font-serif italic">
+          &mdash;{' '}
+          <Link href={`/u/${author.id}`} className="hover:underline">
+            {author.display_name}
+          </Link>
+          {author.location && <span className="text-pencil">, {author.location}</span>}
+        </p>
       )}
       {children}
     </article>

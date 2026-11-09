@@ -60,7 +60,17 @@ export default function LoginForm() {
       const noAccount = /signups not allowed/i.test(authError.message)
 
       if (rateLimited) {
-        setError('Too many emails requested. Please wait a bit and try again.')
+        // Supabase has a per-address cooldown ("...after 42 seconds") and a project-wide hourly email cap.
+        const wait = authError.message.match(/after (\d+) seconds/)
+        setError(
+          wait
+            ? `Please wait ${wait[1]} seconds before asking for another link.`
+            : 'Our email limit for this hour has been reached. Please try again later.'
+        )
+        return
+      }
+      if (/error sending/i.test(authError.message)) {
+        setError("We couldn't send the email right now. Please try again in a little while.")
         return
       }
       if (mode === 'login' && noAccount) {
@@ -82,9 +92,9 @@ export default function LoginForm() {
 
   if (sent) {
     return (
-      <div className="space-y-3 rounded-lg border border-stone-300 bg-white px-4 py-5">
+      <div className="space-y-3 rounded-sm border border-rule bg-sheet px-4 py-5">
         <p className="font-medium">Check your email</p>
-        <p className="text-sm text-stone-600">
+        <p className="text-sm text-pencil">
           If <strong>{email.trim()}</strong> can sign in, a link is on its way. Open it in
           this same browser.
         </p>
@@ -105,14 +115,14 @@ export default function LoginForm() {
         <button
           type="button"
           onClick={() => setMode('login')}
-          className={mode === 'login' ? 'font-semibold underline' : 'text-stone-500'}
+          className={mode === 'login' ? 'font-medium text-ink underline underline-offset-4' : 'text-pencil hover:text-ink'}
         >
           Log in
         </button>
         <button
           type="button"
           onClick={() => setMode('signup')}
-          className={mode === 'signup' ? 'font-semibold underline' : 'text-stone-500'}
+          className={mode === 'signup' ? 'font-medium text-ink underline underline-offset-4' : 'text-pencil hover:text-ink'}
         >
           I have an invite code
         </button>
@@ -159,7 +169,7 @@ export default function LoginForm() {
       )}
 
       {error && (
-        <p className="rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900">
+        <p className="rounded-sm border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-900">
           {error}
         </p>
       )}
@@ -167,7 +177,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={sending}
-        className="w-full rounded-lg bg-stone-800 px-4 py-2 text-white disabled:opacity-60"
+        className="w-full rounded-sm bg-ink px-4 py-2 text-white disabled:opacity-60"
       >
         {sending ? 'Sending…' : 'Email me a link'}
       </button>

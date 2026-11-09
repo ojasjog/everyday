@@ -7,7 +7,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export default function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
   return (
-    <Suspense fallback={<p className="text-stone-500">Loading…</p>}>
+    <Suspense fallback={<p className="text-pencil">Loading…</p>}>
       <Profile params={params} />
     </Suspense>
   )
@@ -33,12 +33,12 @@ async function Profile({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="space-y-8">
       <section className="space-y-1">
-        <h1 className="text-2xl font-semibold">{profile.display_name}</h1>
-        {profile.location && <p className="text-sm text-stone-500">{profile.location}</p>}
-        {profile.bio && <p className="whitespace-pre-wrap pt-2 text-stone-700">{profile.bio}</p>}
+        <h1 className="font-serif text-[1.75rem] font-medium leading-tight">{profile.display_name}</h1>
+        {profile.location && <p className="text-sm text-pencil">{profile.location}</p>}
+        {profile.bio && <p className="whitespace-pre-wrap pt-2 text-ink">{profile.bio}</p>}
       </section>
       <section className="space-y-6">
-        {!posts?.length && <p className="text-stone-500">Nothing shared yet.</p>}
+        {!posts?.length && <p className="text-pencil">Nothing shared yet.</p>}
         {(posts as Post[] | null)?.map((p) => <PostCard key={p.id} post={p} />)}
       </section>
     </div>

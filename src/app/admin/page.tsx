@@ -18,7 +18,7 @@ type Report = {
 
 export default function AdminPage() {
   return (
-    <Suspense fallback={<p className="text-stone-500">Loading…</p>}>
+    <Suspense fallback={<p className="text-pencil">Loading…</p>}>
       <Admin />
     </Suspense>
   )
@@ -42,16 +42,16 @@ async function Admin() {
   return (
     <div className="space-y-12">
       <section className="space-y-4">
-        <h1 className="text-2xl font-semibold">Open reports</h1>
-        {!reports.length && <p className="text-stone-500">Nothing to review.</p>}
+        <h1 className="font-serif text-[1.75rem] font-medium leading-tight">Open reports</h1>
+        {!reports.length && <p className="text-pencil">Nothing to review.</p>}
         {reports.map((r) => (
           <div key={r.id} className="space-y-3">
             <p className="text-sm">
-              <span className="text-stone-500">Reason:</span> {r.reason}
+              <span className="text-pencil">Reason:</span> {r.reason}
             </p>
             {r.post ? (
               <PostCard post={r.post} author={r.post.author ? { ...r.post.author, location: null } : undefined}>
-                <div className="flex flex-wrap gap-3 border-t border-stone-100 pt-3">
+                <div className="flex flex-wrap gap-3 border-t border-rule pt-3">
                   <form action={removePost}>
                     <input type="hidden" name="post_id" value={r.post.id} />
                     <button className={`${buttonClass} text-sm`}>Remove post</button>
@@ -81,7 +81,7 @@ async function Admin() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold">Invite codes</h2>
+        <h2 className="font-serif text-xl font-medium">Invite codes</h2>
         <form action={createInvites} className="flex gap-2">
           <input type="number" name="count" min={1} max={50} defaultValue={5} className={`${inputClass} w-24`} />
           <button className={`${buttonClass} text-sm`}>Generate</button>
@@ -91,7 +91,7 @@ async function Admin() {
             {invites.map((i) => <li key={i.code}>{i.code}</li>)}
           </ul>
         ) : (
-          <p className="text-stone-500">No unused codes.</p>
+          <p className="text-pencil">No unused codes.</p>
         )}
       </section>
 

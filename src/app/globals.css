@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
-:root {
-  --background: #faf7f2;
-  --foreground: #2b2622;
+/* Ink on onionskin: posts read like letters from strangers. */
+@theme {
+  --color-paper: #e9eef2;  /* page */
+  --color-sheet: #fafbfc;  /* a letter */
+  --color-ink: #1f2b46;    /* blue-black text, primary buttons */
+  --color-pencil: #5b6880; /* secondary text */
+  --color-rule: #c9d2dc;   /* hairlines */
+  --color-stamp: #a3405c;  /* the private heart, nothing else */
+
+  --font-serif: var(--font-literata), Georgia, serif;
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }
